@@ -4,6 +4,8 @@
 
 Đồ án sử dụng dữ liệu CHB-MIT để xây dựng bài toán phân biệt **tiền cơn động kinh (preictal)** và **giữa các cơn (interictal)**, với kiến trúc mô hình DBConformer.
 
+**Môi trường huấn luyện:** Kaggle Notebook. Quy trình của đồ án gồm chuẩn bị dữ liệu trên máy cá nhân, sau đó sử dụng dữ liệu đã xử lý để huấn luyện mô hình trên Kaggle.
+
 Repository hiện có mã chuẩn bị dữ liệu và định nghĩa mô hình. Chưa có script huấn luyện, suy luận hoặc đánh giá cảnh báo hoàn chỉnh trong thư mục này; các lệnh dưới đây hướng dẫn đến bước xuất dữ liệu và tạo danh sách train/validation.
 
 ## 1. Nguồn dữ liệu và mô hình
@@ -111,6 +113,19 @@ Trước khi chạy, sửa các biến sau về cùng thư mục dữ liệu th�
 | `kfold_pre_clusters_balanced_inter.py` | Đặt `CSV_PATH = BASE / "segment_train_folds" / "kfold_4h_120m.csv"` để tên kết quả phản ánh cấu hình |
 
 Các thay đổi trên là hướng dẫn cấu hình; việc thêm README không tự thay đổi các script. Nếu tiếp tục dùng cửa sổ 30 giây, cần sửa cả logic đếm và kiểm tra cửa sổ trong K-fold trước khi chạy bước đó; chỉ đổi đường dẫn là chưa đủ.
+
+### 3.5. Môi trường huấn luyện trên Kaggle
+
+Đồ án sử dụng **Kaggle Notebook** làm môi trường huấn luyện DBConformer. Các lệnh PowerShell và đường dẫn `D:/DO_AN_TN/...` trong README phục vụ bước chuẩn bị dữ liệu trên máy cá nhân.
+
+Dữ liệu chuyển sang môi trường huấn luyện gồm:
+
+- Các file NPZ train đã gán nhãn và CSV phân chia train/validation tương ứng.
+- Các file NPZ test liên tục để đánh giá sau khi huấn luyện.
+- Mã kiến trúc `models/DBConformer.py`.
+- Dữ liệu NPZ pretrain nếu thí nghiệm có bước huấn luyện trước.
+
+Trong notebook huấn luyện, cần cấu hình lại đường dẫn dữ liệu theo vị trí gắn dữ liệu trên Kaggle và giữ đúng cách chia train/validation/test đã chuẩn bị. Ghi lại loại GPU, phiên bản Python/PyTorch, cấu hình huấn luyện và seed của từng lần chạy để có thể tái lập thí nghiệm. Repository hiện chưa kèm notebook huấn luyện Kaggle.
 
 ## 4. Thứ tự chạy và kết quả của từng bước
 
