@@ -6,7 +6,7 @@
 
 **Môi trường huấn luyện:** Kaggle Notebook. Quy trình của đồ án gồm chuẩn bị dữ liệu trên máy cá nhân, sau đó sử dụng dữ liệu đã xử lý để huấn luyện mô hình trên Kaggle.
 
-Repository hiện có mã chuẩn bị dữ liệu và định nghĩa mô hình. Chưa có script huấn luyện, suy luận hoặc đánh giá cảnh báo hoàn chỉnh trong thư mục này; các lệnh dưới đây hướng dẫn đến bước xuất dữ liệu và tạo danh sách train/validation.
+Repository hiện có mã chuẩn bị dữ liệu và định nghĩa mô hình. Mã huấn luyện trên Kaggle được cung cấp tại [DBConformer with EEG Dataset](https://www.kaggle.com/code/nguyentduc/dbconformer-with-eeg-dataset). Các lệnh chạy trên máy cá nhân dưới đây hướng dẫn đến bước xuất dữ liệu và tạo danh sách train/validation.
 
 ## 1. Nguồn dữ liệu và mô hình
 
@@ -118,14 +118,25 @@ Các thay đổi trên là hướng dẫn cấu hình; việc thêm README khôn
 
 Đồ án sử dụng **Kaggle Notebook** làm môi trường huấn luyện DBConformer. Các lệnh PowerShell và đường dẫn `D:/DO_AN_TN/...` trong README phục vụ bước chuẩn bị dữ liệu trên máy cá nhân.
 
-Dữ liệu chuyển sang môi trường huấn luyện gồm:
+**Notebook huấn luyện:** [DBConformer with EEG Dataset — nguyentduc](https://www.kaggle.com/code/nguyentduc/dbconformer-with-eeg-dataset).
+
+**Các bộ dữ liệu đã tiền xử lý trên Kaggle:**
+
+| STT | Bộ dữ liệu | Liên kết |
+| --- | --- | --- |
+| 1 | CHB-MIT Preprocessing Dataset — Window Size 30 | [chb-mit-preprocessing-dataset-window-size30](https://www.kaggle.com/datasets/nguyentduc/chb-mit-preprocessing-dataset-window-size30) |
+| 2 | EEG CHB-MIT Preprocessing — 4 Hours | [eeg-chb-mit-preprocessig-4-hours](https://www.kaggle.com/datasets/nguyentduc/eeg-chb-mit-preprocessig-4-hours/) |
+
+Để sử dụng dữ liệu đã chuẩn bị, mở notebook huấn luyện và gắn bộ dữ liệu tương ứng với thí nghiệm. Kiểm tra cấu hình trong notebook và metadata của dữ liệu để thống nhất độ dài cửa sổ, quy tắc gán nhãn và CSV fold; các bộ dữ liệu trên Kaggle có thể thuộc những cấu hình thí nghiệm khác nhau. Nếu muốn tự tạo lại dữ liệu từ EDF gốc, thực hiện quy trình ở mục 4.
+
+Khi tự chuẩn bị dữ liệu để huấn luyện trên Kaggle, các thành phần cần chuyển sang gồm:
 
 - Các file NPZ train đã gán nhãn và CSV phân chia train/validation tương ứng.
 - Các file NPZ test liên tục để đánh giá sau khi huấn luyện.
 - Mã kiến trúc `models/DBConformer.py`.
 - Dữ liệu NPZ pretrain nếu thí nghiệm có bước huấn luyện trước.
 
-Trong notebook huấn luyện, cần cấu hình lại đường dẫn dữ liệu theo vị trí gắn dữ liệu trên Kaggle và giữ đúng cách chia train/validation/test đã chuẩn bị. Ghi lại loại GPU, phiên bản Python/PyTorch, cấu hình huấn luyện và seed của từng lần chạy để có thể tái lập thí nghiệm. Repository hiện chưa kèm notebook huấn luyện Kaggle.
+Trong notebook huấn luyện, cần cấu hình lại đường dẫn dữ liệu theo vị trí gắn dữ liệu trên Kaggle và giữ đúng cách chia train/validation/test đã chuẩn bị. Ghi lại loại GPU, phiên bản Python/PyTorch, cấu hình huấn luyện và seed của từng lần chạy để có thể tái lập thí nghiệm. Notebook được cung cấp qua liên kết Kaggle ở trên; repository hiện chưa chứa bản sao `.ipynb` của notebook này.
 
 ## 4. Thứ tự chạy và kết quả của từng bước
 
@@ -149,7 +160,7 @@ EDF gốc + chbXX-summary.txt
 6. kfold_pre_clusters_balanced_inter.py    | phục vụ đánh giá sau này
           | CSV train/validation          |
           v                               v
-      Huấn luyện / đánh giá: cần bổ sung script riêng
+      Huấn luyện trên Kaggle: xem notebook tại mục 3.5
 ```
 
 Nhánh tùy chọn: sau khi tạo dated summary và chốt `TEST_START`, có thể chạy `segment_pretrain_chb.py` để xuất dữ liệu từ các bệnh nhân ngoài tập đích. Nhánh này đọc EDF gốc, không cần chờ sao chép train/test.
